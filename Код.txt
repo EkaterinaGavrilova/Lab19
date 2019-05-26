@@ -1,0 +1,64 @@
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.input.MouseDragEvent;
+import javafx.stage.*;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import java.util.Random;
+
+import java.awt.event.MouseEvent;
+
+public class JavaFXLabelDemo extends Application  {
+    Label response;
+    Random rand = new Random();
+    int winSizeX=300;
+    int winSizeY=100;
+    public static void main(String [] args){
+    launch(args);
+    }
+    public void start(Stage myStage){
+    myStage.setTitle("Demonstrate JavaFX Buttons and Events.");
+    Pane rootNode=new Pane();
+    Scene myScene = new Scene(rootNode,winSizeX, winSizeY);
+    myStage.setScene(myScene);
+
+   /*FlowPane rootNode = new FlowPane(10,10);
+    rootNode.setAlignment(Pos.CENTER);
+    Scene myScene = new Scene(rootNode, 300,100);
+    myStage.setScene(myScene);*/
+    response=new Label("Push a Button");
+    Button btnAlpha = new Button("Alpha");
+    btnAlpha.setLayoutX(10);
+    btnAlpha.setLayoutY(20);
+    Button btnBeta = new Button("Beta");
+    btnAlpha.setLayoutX(50);
+    btnAlpha.setLayoutY(20);
+    btnAlpha.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            response.setText("Alpha was pressed");
+        }
+    });
+    btnBeta.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            response.setText("Beta was pressed");
+        }
+    });
+    btnBeta.setOnMouseDragEntered(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            btnBeta.setLayoutX(rand.nextInt(winSizeX));
+            btnBeta.setLayoutY(rand.nextInt(winSizeY));
+        }
+    });
+    rootNode.getChildren().addAll(btnAlpha,btnBeta,response);
+    myStage.show();
+    /*}
+    public static final EventType<MouseEvent> MOUSE_MOVED{
+        public final double getX();
+        public final double getY();
+    }*/
+}
